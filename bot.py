@@ -16,10 +16,6 @@ async def clear(ctx, amount=2):
     await ctx.channel.purge(limit=amount)
 
 @client.command()
-async def prefix(ctx):
-    await ctx.send(f"Hello")
-
-@client.command()
 @has_permissions(ban_members=True)
 async def ban(ctx, member : discord.Member, *, reason=None):
     await member.ban(reason=reason)
@@ -38,12 +34,6 @@ async def echo(ctx, arg):
 async def announce(ctx, message):
     channel = client.get_channel(730196954432274452)
     await channel.send(message)
-
-@client.command()
-async def ping(ctx, member : discord.Member):
-    hello = str(member.id)
-    hello1 = "<@" + hello + ">"
-    await ctx.send(f"PONG {hello1}")
 
 @client.command()
 @has_permissions(kick_members=True)
@@ -71,18 +61,7 @@ async def report(ctx, member : discord.Member, *, reason=None, amount=1):
     await channel.send("Reported sent by " + username1 + " against " + hello1 + " for:\n" + "``" + reason + "``")
 
 @client.command()
-async def ticket(ctx, reason):
-    username = ctx.message.author.name
-    username1  = str(ctx.message.author.id)
-    username2 = "<@" + username1 + ">"
-    name = "tickets"
-    category = discord.utils.get(ctx.guild.categories, name=name)
-    guild = ctx.message.guild
-    channel = await ctx.guild.create_text_channel(username, category=category)
-    await channel.send("Ticket send by: " + username2 + "\n" + "``" + reason + "``")
-
-@client.command()
-async def newticket (ctx, reason):
+async def ticket (ctx, reason):
     username1 = str(ctx.message.author.id)
     username2 = "<@" + username1 + ">"
     with open("tickets.csv", "a") as f:
