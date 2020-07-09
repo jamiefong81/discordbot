@@ -84,4 +84,28 @@ async def tdelete(ctx):
     file.close()
     await ctx.send("Tickets have been deleted!")
 
+@client.command()
+@has_permissions(kick_members=True)
+async def permit(ctx, member: discord.Member):
+    hello = str(member.id)
+    hello1 = "<@" + hello + ">"
+    now = datetime.now()
+    with open("permits.csv", "a") as f:
+        f.write(f"{hello1},{now}\n")
+    sentence = "Permitted " + hello1 + " to post a link!"
+    await ctx.send(sentence)
+
+@client.command()
+@has_permissions(kick_members=True)
+async def permits(ctx, member: discord.Member):
+    hello = str(member.id)
+    hello1 = "<@" + hello + ">"
+    searchfile = open("permits.csv", "r")
+    for line in searchfile:
+        if line.startswith(hello1):
+            print(line)
+            await ctx.send(line)
+
+    searchfile.close()
+    
 client.run("")
